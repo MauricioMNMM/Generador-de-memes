@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 
-function App() {
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      superior: " ",
+      inferior: " ",
+    };
+  }
+
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+  render() {
+    return (
+      <div className="App">
+        <div className="container">
+          <h1 className="title">Generador de memes</h1>
+          <Meme superior={this.state.superior} inferior={this.state.inferior} />
+          <MemeForm values={this.state} onChange={this.handleChange} />
+        </div>
+      </div>
+    );
+  }
+}
+function Meme(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="meme-template">
+      <img
+        src="https://i1.wp.com/www.sopitas.com/wp-content/uploads/2018/11/plantillas-memes-internet-47.jpg"
+        alt="PlantillaDeMeme"
+        className="image"
+      />
+      <h2 className="uppertext">{props.superior}</h2>
+      <h2 className="lowercase">{props.inferior}</h2>
     </div>
   );
 }
-
+function MemeForm(props) {
+  return (
+    <form>
+      <input
+        name="superior"
+        value={props.values.superior}
+        placeholder="Texto superior"
+        className="form-input"
+        onChange={props.onChange}
+      ></input>
+      <input
+        name="inferior"
+        value={props.values.inferior}
+        placeholder="Texto inferior"
+        className="form-input"
+        onChange={props.onChange}
+      ></input>
+    </form>
+  );
+}
 export default App;

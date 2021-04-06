@@ -7,7 +7,19 @@ class App extends React.Component {
     this.state = {
       superior: " ",
       inferior: " ",
+      memes: {},
     };
+  }
+
+  componentDidMount() {
+    //Recibe el la URL de la API como paramtetro
+    fetch("https://api.imgflip.com/get_memes")
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+      });
   }
 
   handleChange = (event) => {
@@ -21,9 +33,32 @@ class App extends React.Component {
           <h1 className="title">Generador de memes</h1>
           <Meme superior={this.state.superior} inferior={this.state.inferior} />
           <MemeForm values={this.state} onChange={this.handleChange} />
+          {this.state.superior !== " " ? null : <Dummy />}
         </div>
       </div>
     );
+  }
+}
+class Dummy extends React.Component {
+  constructor() {
+    super();
+    console.log("CONSTRUCTOR");
+  }
+
+  componentWillMount() {
+    console.log("COMPONENT WILL MOUNT");
+  }
+
+  componentDidMount() {
+    console.log("COMPONENT DID MOUNT");
+  }
+
+  componentWillUnmount() {
+    console.log("COMPONENT WILL UNMOUNT");
+  }
+  render() {
+    console.log("RENDER");
+    return <h1>Hola</h1>;
   }
 }
 function Meme(props) {

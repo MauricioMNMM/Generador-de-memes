@@ -7,18 +7,25 @@ class App extends React.Component {
     this.state = {
       superior: " ",
       inferior: " ",
-      memes: {},
+      memes: [],
+      plantilla:
+        "https://i1.wp.com/www.sopitas.com/wp-content/uploads/2018/11/plantillas-memes-internet-47.jpg",
     };
   }
 
   componentDidMount() {
     //Recibe el la URL de la API como paramtetro
     fetch("https://api.imgflip.com/get_memes")
-      .then((response) => {
-        return response.json();
+      //Las promesas van encadenadas
+      .then((response) => response.json())
+      //Aqui ya se puede trabajar con la API
+      .then((memesJson) => {
+        this.setState({ memes: memesJson.data.memes });
       })
-      .then((response) => {
-        console.log(response);
+      //Para en caso de errores
+      .catch((error) => {
+        console.log(error);
+        console.log("Hubo un error");
       });
   }
 
@@ -31,44 +38,47 @@ class App extends React.Component {
       <div className="App">
         <div className="container">
           <h1 className="title">Generador de memes</h1>
-          <Meme superior={this.state.superior} inferior={this.state.inferior} />
+          <Meme
+            superior={this.state.superior}
+            inferior={this.state.inferior}
+            plantilla={this.state.plantilla}
+          />
           <MemeForm values={this.state} onChange={this.handleChange} />
-          {this.state.superior !== " " ? null : <Dummy />}
+          <div className="contactame">
+            <h3>GitHub</h3>
+            <div div="div-git">
+              <a href="https://github.com/MauricioMNMM/Generador-de-memes">
+                <img
+                  src="https://midu.dev/images/tags/github.png"
+                  alt="GitHub"
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="div-meme">
+          <h2>Plantillas</h2>
+          {this.state.memes.map((item) => {
+            return (
+              <img
+                src={item.url}
+                className="image-memes"
+                onClick={() => {
+                  this.setState({ plantilla: item.url });
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     );
   }
 }
-class Dummy extends React.Component {
-  constructor() {
-    super();
-    console.log("CONSTRUCTOR");
-  }
 
-  componentWillMount() {
-    console.log("COMPONENT WILL MOUNT");
-  }
-
-  componentDidMount() {
-    console.log("COMPONENT DID MOUNT");
-  }
-
-  componentWillUnmount() {
-    console.log("COMPONENT WILL UNMOUNT");
-  }
-  render() {
-    console.log("RENDER");
-    return <h1>Hola</h1>;
-  }
-}
 function Meme(props) {
   return (
     <div className="meme-template">
-      <img
-        src="https://i1.wp.com/www.sopitas.com/wp-content/uploads/2018/11/plantillas-memes-internet-47.jpg"
-        alt="PlantillaDeMeme"
-        className="image"
-      />
+      <img src={props.plantilla} alt="PlantillaDeMeme" className="image" />
       <h2 className="uppertext">{props.superior}</h2>
       <h2 className="lowercase">{props.inferior}</h2>
     </div>

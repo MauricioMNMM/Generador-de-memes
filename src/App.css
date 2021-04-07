@@ -2,10 +2,9 @@
 .App {
   display: flex;
   justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  background-image: url("https://pbs.twimg.com/media/EIJD6KkWkAA485G.jpg");
-  background-size: 200px;
+  background-image: url("https://c4.wallpaperflare.com/wallpaper/277/354/502/feelsbadman-pepe-meme-memes-wallpaper-preview.jpg");
+  background-size: cover;
   background-color: #444444;
   background-blend-mode: soft-light;
 }
@@ -13,6 +12,9 @@
   width: 400px;
   display: block;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  top: 0;
 }
 .title {
   color: white;
@@ -50,4 +52,45 @@ form {
   width: 97%;
   padding: 5px;
   margin: auto;
+}
+.image-memes {
+  width: 100px;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid black;
+}
+.image-memes:hover {
+  transform: scale(1.1);
+}
+.div-meme {
+  width: 450px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  float: left;
+  background-color: #3f4045;
+}
+.div-meme h2 {
+  text-align: center;
+  width: 100%;
+  color: whitesmoke;
+}
+.contactame {
+  background-color: rgb(174, 174, 174);
+  width: 50%;
+  margin: 2rem auto;
+  border: 1px solid black;
+}
+.contactame img {
+  width: 50px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.contactame h3 {
+  text-align: center;
+}
+.contactame a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
